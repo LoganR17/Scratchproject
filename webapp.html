@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickleball Word Scramble Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #4CAF50; /* Solid green background */
+        }
+
+        h1 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+            font-family: 'Impact', sans-serif;
+        }
+
+        .game-container {
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            padding: 40px;
+            border-radius: 20px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .word-display {
+            font-size: 32px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            width: 80%;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #006400;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d00;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff7f50;
+            margin-top: 20px;
+        }
+
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reset-btn:hover {
+            background-color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pickleball Word Scramble Game</h1>
+
+    <div class="game-container">
+        <div class="word-display" id="scrambledWord"></div>
+        <input type="text" id="userInput" placeholder="Enter your guess..." />
+        <button onclick="checkAnswer()">Check Answer</button>
+
+        <div class="message" id="message"></div>
+        <div class="score" id="score">Score: 0</div>
+
+        <button class="reset-btn" onclick="newWord()">New Word</button>
+    </div>
+
+    <script>
+        const words = [
+            'Pickleball', 'Volley', 'Serve', 'Smash', 'Dink', 'Rally', 'Sideout', 'Court', 'Backhand', 'Forehand'
+        ];
+
+        let currentWord = '';
+        let scrambledWord = '';
+        let score = 0;
+
+        // Function to scramble the word
+        function scrambleWord(word) {
+            return word.split('').sort(() => Math.random() - 0.5).join('');
+        }
+
+        // Set a new word
+        function newWord() {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            currentWord = words[randomIndex];
+            scrambledWord = scrambleWord(currentWord);
+            document.getElementById('scrambledWord').innerText = scrambledWord;
+            document.getElementById('userInput').value = '';
+            document.getElementById('message').innerText = '';
+        }
+
+        // Check the answer
+        function checkAnswer() {
+            const userInput = document.getElementById('userInput').value.trim();
+            if (userInput.toLowerCase() === currentWord.toLowerCase()) {
+                document.getElementById('message').innerText = 'Correct! 🎉';
+                document.getElementById('message').style.color = 'green';
+                score += 10;
+            } else {
+                document.getElementById('message').innerText = 'Try again! ❌';
+                document.getElementById('message').style.color = 'red';
+            }
+            document.getElementById('score').innerText = `Score: ${score}`;
+        }
+
+        // Initialize the game with a word
+        newWord();
+    </script>
+
+<a href="index.html" style="
+display: inline-block;
+margin: 20px;
+padding: 10px 20px;
+background-color: #0a6847;
+color: white;
+text-decoration: none;
+border-radius: 8px;
+font-weight: bold;
+box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+">
+⬅ Back to Home
+</a>
+
+
+</body>
+</html>
